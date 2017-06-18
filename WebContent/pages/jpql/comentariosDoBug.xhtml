@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/template/template_padrao.xhtml">
+	
+	<ui:define name="conteudo">
+		<div id="container" align="left">
+			<h1>Pesquisa comentários do bug</h1>
+			
+			<h:form>
+				<h:outputLabel value="Bug"/>
+		        	<h:selectOneMenu value="#{bugsDoUsuarioBean.bug.id}">
+		        		<f:selectItem itemLabel="Escolha um bug" itemValue="" noSelectionOption="true"/>
+		        		<f:selectItems value="#{cadastroDeBugsBean.bugs}" var="bug" 
+		        			itemLabel="##{bug.id} - #{bug.sumario}" itemValue="#{bug.id}" />
+		        	</h:selectOneMenu>
+		        	<div align="right">			 
+					<h:commandButton value="Pesquisar" action="#{bugsDoUsuarioBean.pesquisaComentariosDoBug}" />
+				</div>
+			</h:form>
+			
+			<div id="comentarios">
+				<ui:repeat var="comentario" value="#{bugsDoUsuarioBean.comentarios}">
+					<fieldset class="issue-comentario">
+						<legend>
+							#{comentario.autor.nome} comentou em 
+							<h:outputText value="#{comentario.criadoEm}">
+								<f:convertDateTime pattern="dd/MM/yyyy 'as' HH:mm" />
+							</h:outputText>
+						</legend>
+						#{comentario.descricao}
+					</fieldset>
+				</ui:repeat>
+			</div>
+			
+		</div>
+	</ui:define>
+		
+</ui:composition>

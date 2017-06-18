@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/template/template_padrao.xhtml">
+	
+	<ui:define name="conteudo">
+		<div id="container" align="left">
+			<h1>Cadastro de Usuários</h1>
+			
+			<h:form>
+		        <h:outputLabel value="Nome" for="nome" />
+				<h:inputText id="nome" styleClass="texto-longo"
+					value="#{cadastroDeUsuariosBean.usuario.nome}" 
+					label="Nome" 
+					required="true" />
+				<h:outputLabel value="Login" for="login" />
+				<h:inputText id="login" 
+					value="#{cadastroDeUsuariosBean.usuario.login}" 
+					label="Login"
+					required="true">
+					<f:validateLength minimum="4" />
+				</h:inputText>
+				<h:outputLabel value="E-mail" for="email" />
+				<h:inputText id="email" 
+					value="#{cadastroDeUsuariosBean.usuario.email}" 
+					label="E-mail" 
+					required="true" />
+				<h:outputLabel value="Senha" for="senha" />
+				<h:inputSecret id="senha" 
+					value="#{cadastroDeUsuariosBean.usuario.senha}" 
+					label="Senha" 
+					required="true" 
+					redisplay="true" />
+
+				<div align="right">
+					<h:commandButton value="Salvar" 
+						action="#{cadastroDeUsuariosBean.salva}">
+					</h:commandButton>
+				</div>
+				
+				<h:panelGroup rendered="#{not empty cadastroDeUsuariosBean.usuarios}">
+					<h3>Todos os Usuários</h3>
+					<hr />
+					
+					<h:dataTable
+						id="tabela" 
+						value="#{cadastroDeUsuariosBean.usuarios}"
+						var="usuario"
+						rowClasses="odd, even">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="ID" />
+							</f:facet>
+							#{usuario.id}
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Nome" />
+							</f:facet>
+							#{usuario.nome}
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Login" />
+							</f:facet>
+							#{usuario.login}
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="E-mail" />
+							</f:facet>
+							#{usuario.email}
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Ações" />
+							</f:facet>
+							<h:commandLink value="remover" immediate="true"
+								action="#{cadastroDeUsuariosBean.remove(usuario)}"
+								onclick="return confirm('Deseja realmente remover este usuário?');">
+							</h:commandLink>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+			</h:form>
+		</div>
+	</ui:define>
+		
+</ui:composition>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/template/template_padrao.xhtml">
+	
+	<ui:define name="conteudo">
+		<div id="container" align="left">
+			<h1>Cadastro de Bugs</h1>
+			
+			<h:form>
+		        <h:outputLabel value="Sumário" for="sumario" />
+				<h:inputText id="sumario" styleClass="texto-longo"
+					value="#{cadastroDeBugsBean.bug.sumario}" 
+					label="Sumário" 
+					required="true" />
+						
+				<h:outputLabel value="Descrição" for="descricao" />
+				<h:inputTextarea id="descricao" rows="3" style="width: 600px;"
+					required="true" label="Descrição" 
+					value="#{cadastroDeBugsBean.bug.descricao}" />
+
+				<h:outputLabel value="Responsável" for="responsavel" />
+				<h:selectOneMenu id="responsavel" label="Responsável"
+					value="#{cadastroDeBugsBean.bug.responsavel.id}"
+					required="true">
+					<f:selectItem itemLabel="Selecione um usuário" noSelectionOption="true" itemValue="#{null}"/>
+					<f:selectItems value="#{cadastroDeUsuariosBean.usuarios}" var="u" 
+						itemLabel="#{u.nome}" itemValue="#{u.id}" />
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Status" for="status" />
+		        	<h:selectOneMenu id="status" value="#{cadastroDeBugsBean.bug.status}">
+		        		<f:selectItems value="#{statusBean.todos}" var="status" 
+		        			itemLabel="#{status}" itemValue="#{status}" />
+		        	</h:selectOneMenu>
+		        	
+				<h:panelGroup rendered="false">
+					<h:outputLabel value="Categoria" for="categoria" />
+					<h:selectOneMenu id="categoria" value="#{cadastroDeBugsBean.categoria.id}" label="Categoria">
+						<f:selectItems value="#{categoriasBean.categorias}" var="cat" 
+			        			itemLabel="#{cat.nome}" itemValue="#{cat.id}" />
+			        	</h:selectOneMenu>
+				</h:panelGroup>
+
+				<div align="right">
+					<h:commandButton value="Salvar" 
+						action="#{cadastroDeBugsBean.salva}">
+					</h:commandButton>
+				</div>
+			
+				<h:panelGroup rendered="#{not empty cadastroDeBugsBean.bugs}">
+					<h3>Todos os Bugs</h3>
+					<hr />
+				
+					<h:dataTable
+						id="tabela" 
+						value="#{cadastroDeBugsBean.bugs}"
+						var="bug"
+						rowClasses="odd, even">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="ID" />
+							</f:facet>
+							#{bug.id}
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Sumário" />
+							</f:facet>
+							#{bug.sumario}
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Status" />
+							</f:facet>
+							#{bug.status}
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Criado Em" />
+							</f:facet>
+							<h:outputText value="#{bug.criadoEm}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Responsável" />
+							</f:facet>
+							#{bug.responsavel.nome}
+						</h:column>
+						<h:column>
+							<h:commandLink value="remover"
+								action="#{cadastroDeBugsBean.remove(bug)}" immediate="true"
+								onclick="return confirm('Deseja realmente remover este bug?');">
+							</h:commandLink>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+			
+			</h:form>
+		</div>
+	</ui:define>
+		
+</ui:composition>

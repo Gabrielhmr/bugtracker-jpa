@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html">
+    <f:view contentType="text/html" />
+    <h:head>
+        <title>Persistência com JPA 2 e Hibernate</title>
+    </h:head>
+    <h:body>
+    		<div style="position:relative;">
+	    		<h:graphicImage library="images" name="triadworks.png" style="padding:0; margin:0;" width="600" />
+	        	<h2 style="position:absolute; display:inline; left:200px; bottom:0; padding:0; margin:0">Persistência com JPA 2 e Hibernate</h2>
+		</div>
+		
+		<hr />
+		
+	    <h:panelGrid columns="1" style="float:left">
+			<h3>Cadastros</h3>    
+	        <h:link outcome="pages/bugs" value="Cadastro de bugs"/>
+	        <h:link outcome="pages/usuarios" value="Cadastro de usuarios"/>
+	        
+			<h3>Consultas com JPQL</h3>    
+	        <h:link outcome="pages/jpql/bugsDoUsuario" value="Pesquisa bugs do usuário"/>
+	        <h:link outcome="pages/jpql/buscaBugsPorUsuarioEStatus" value="Pesquisa bugs por usuário e status"/>
+	        <h:link outcome="pages/jpql/buscaBugsPorNomeDoUsuario" value="Pesquisa bugs por nome do usuário"/>
+	        <h:link outcome="pages/jpql/totalDeBugsPorStatus" value="Calcula total de bugs por status"/>
+	        <h:link outcome="pages/jpql/bugsComComentarios" value="Pesquisa bugs com comentários"/>
+	        <h:link outcome="pages/jpql/comentariosDoBug" value="Pesquisa comentários do bug"/>
+	        <h:link outcome="pages/jpql/quantidadeDeBugsPorMes" value="Pesquisa a quantidade de bugs por mês"/>
+	    </h:panelGrid>    
+
+	    <h:panelGrid columns="1" style="float:left; margin-left:40px">
+	        <h3>Consultas com Criteria</h3>
+	        <h:link outcome="pages/criteria/todosOsBugsComCriteria" value="Lista todos os bugs do sistema"/>
+	        <h:link outcome="pages/criteria/buscaBugsPorStatusComCriteria" value="Pesquisa bugs por status"/>
+	        <h:link outcome="pages/criteria/buscaBugsPorSumarioEStatusComCriteria" value="Pesquisa bugs por sumário e status"/>
+	        <h:link outcome="pages/criteria/bugsComComentariosComCriteria" value="Pesquisa bugs com comentários"/>
+	        <h:link outcome="pages/criteria/buscaBugsPorNomeDoUsuarioComCriteria" value="Pesquisa bugs por nome do usuário"/>
+	        <h:link outcome="pages/criteria/buscaBugsPorNomeOuLoginDoUsuarioComCriteria" value="(Opcional) Pesquisa bugs por nome ou login do usuário"/>
+	        <h:link outcome="pages/criteria/quantidadeDeBugsPorUsuarioComCriteria" value="Pesquisa a quantidade de bugs por usuário"/>
+
+	        <h3>Cache</h3>
+	        <h:link outcome="pages/cache/cache" value="Teste do Cache"/>
+		</h:panelGrid>
+    </h:body>
+</html>

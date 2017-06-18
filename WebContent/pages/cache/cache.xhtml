@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/template/template_padrao.xhtml">
+	
+	<ui:define name="conteudo">
+		<div id="container" align="left">
+			<h1>Testando Cache de Primeiro Nível</h1>
+			
+			<h:form>
+				<h:outputLabel value="ID do Bug" for="_id" />
+				<h:inputText value="#{cacheBean.id}" id="_id" label="ID do Bug"
+				 	required="true"/>
+		        	<div align="right">			 
+					<h:commandButton value="Pesquisar" action="#{cacheBean.pesquisa}" />
+				</div>
+			</h:form>
+			
+			<h:form rendered="#{not empty cacheBean.bug}">
+				<h3>Dados do bug</h3>
+				<hr/>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="ID" for="id" />
+					<h:inputText id="id" value="#{cacheBean.bug.id}" 
+						label="ID" disabled="true" />
+						
+					<h:outputLabel value="Sumário" for="sumario" />
+					<h:inputText id="sumario" styleClass="texto-longo" value="#{cacheBean.bug.sumario}" 
+						label="Sumário" disabled="true" />
+					
+					<!-- Comentários -->	
+					<h:outputLabel value="Total de Comentários" for="comentarios" rendered="false"/>
+					<h:inputText id="comentarios" value="#{cacheBean.bug.comentarios.size()}" 
+						label="Total de Comentários" disabled="true" rendered="false" />
+				</h:panelGrid>
+			</h:form>		
+		</div>
+	</ui:define>
+		
+</ui:composition>
